@@ -1,9 +1,6 @@
-using OMEinsum
 using LinearAlgebra
 # tensor contractions
 using OMEinsum
-# comparision
-using ITensors, ITensorMPS
 #=
     M : an arbitrary MPS with order of legs: left-bottom-right
     returns a left-normalized MPS
@@ -33,7 +30,6 @@ function left_canonical_form(M)
 
         # update tensor reshaping A = M U
         M_copy[i] = reshape(U, (size(M_copy[i])[1], size(M_copy[i])[2], size(U)[2]))
-
         # update next site -> renaming SV^dagger = c^{sigma_2 sigma_3...}
         SVdag = Diagonal(S) * Vdag
         if i < length(M_copy) - 1
@@ -66,7 +62,8 @@ function right_canonical_form(M)
     end
     return M_copy
 end
-let
+
+function run_test()
     N = 10
     d = 3
     D = 20
@@ -122,9 +119,3 @@ let
         println("i = $(i) : $(size(R_right[i]))")
     end
 end
-
-
-
-
-
-
